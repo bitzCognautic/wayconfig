@@ -54,7 +54,7 @@
   "clock": {
     "format": "\uf017 {:%a %d %b  %I:%M %p}",
     "tooltip-format": "<tt>{calendar}</tt>",
-    "on-click": "kitty --title com.omarchy.calendar --override font_size=16 python3 ~/.config/tui/calendar-popup.py",
+    "on-click": "kitty --title com.omarchy.calendar --override font_size=11 python3 ~/.config/tui/calendar-popup.py",
     "calendar": {
       "mode": "month",
       "mode-mon-col": 3,
@@ -72,7 +72,7 @@
   "cpu": {
     "format": "\uf4bc {usage}%",
     "interval": 2,
-    "on-click": "kitty --title com.omarchy.sysmon --override font_size=14 btm"
+    "on-click": "kitty --title com.omarchy.sysmon --override font_size=14 python3 ~/.config/tui/esc-close-wrapper.py btm"
   },
   "custom/system-menu": {
     "format": "\udb81\ude33",
@@ -86,7 +86,7 @@
   "memory": {
     "format": "\uefc5 {}%",
     "interval": 2,
-    "on-click": "kitty --title com.omarchy.sysmon --override font_size=14 btm"
+    "on-click": "kitty --title com.omarchy.sysmon --override font_size=14 python3 ~/.config/tui/esc-close-wrapper.py btm"
   },
   "backlight": {
     "format": "\udb80\udce0 {percent}%",

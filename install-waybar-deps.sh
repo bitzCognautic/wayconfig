@@ -8,11 +8,13 @@ if ! command -v pacman >/dev/null 2>&1; then
 fi
 
 packages=(
+  bottom
   waybar
   hyprland
   bluez
   bluez-utils
   brightnessctl
+  cpupower
   gtk3
   gtk-layer-shell
   jq
@@ -26,6 +28,7 @@ packages=(
   libnotify
   pamixer
   pavucontrol
+  power-profiles-daemon
   slurp
   rofi
   python

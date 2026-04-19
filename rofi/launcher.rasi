@@ -1,0 +1,13 @@
+configuration {
+    modi: "drun,run,window";
+    show-icons: true;
+    icon-theme: "Papirus-Dark";
+    drun-display-format: "{name}";
+    hover-select: true;
+    disable-history: false;
+    display-drun: "apps";
+    display-run: "run";
+    display-window: "windows";
+}
+
+@theme "launcher-theme.rasi"

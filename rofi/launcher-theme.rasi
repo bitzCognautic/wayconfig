@@ -1,0 +1,113 @@
+* {
+    font: "JetBrainsMono Nerd Font 12";
+    bg: rgba(20, 20, 20, 94%);
+    bg-card: rgba(255, 255, 255, 6%);
+    bg-card-hover: rgba(255, 255, 255, 10%);
+    fg: #ececec;
+    fg-dim: #9f9f9f;
+    border: rgba(255, 255, 255, 12%);
+    border-strong: rgba(255, 255, 255, 18%);
+    background-color: transparent;
+    text-color: @fg;
+}
+
+window {
+    transparency: "real";
+    location: center;
+    anchor: center;
+    fullscreen: false;
+    width: 56%;
+    border: 1px;
+    border-color: @border;
+    border-radius: 0px;
+    background-color: @bg;
+}
+
+mainbox {
+    spacing: 14px;
+    padding: 18px;
+    background-color: transparent;
+    children: [ "inputbar", "message", "listview" ];
+}
+
+inputbar {
+    spacing: 10px;
+    padding: 10px 12px;
+    border: 1px;
+    border-color: @border;
+    border-radius: 0px;
+    background-color: @bg-card;
+    children: [ "prompt", "entry" ];
+}
+
+prompt {
+    background-color: transparent;
+    text-color: @fg-dim;
+}
+
+entry {
+    background-color: transparent;
+    text-color: @fg;
+    placeholder: "Launch";
+    placeholder-color: @fg-dim;
+}
+
+message {
+    enabled: false;
+}
+
+listview {
+    columns: 4;
+    lines: 3;
+    cycle: true;
+    dynamic: true;
+    layout: vertical;
+    scrollbar: false;
+    spacing: 12px;
+    fixed-height: false;
+    background-color: transparent;
+}
+
+element {
+    orientation: vertical;
+    spacing: 10px;
+    padding: 16px 12px;
+    border: 1px;
+    border-color: @border;
+    border-radius: 0px;
+    background-color: @bg-card;
+    text-color: @fg;
+}
+
+element normal.normal {
+    background-color: @bg-card;
+    border-color: @border;
+    text-color: @fg;
+}
+
+element selected.normal {
+    background-color: @bg-card-hover;
+    border-color: @border-strong;
+    text-color: @fg;
+}
+
+element selected.active {
+    background-color: @bg-card-hover;
+    border-color: @border-strong;
+    text-color: @fg;
+}
+
+element-icon {
+    enabled: true;
+    size: 3.0em;
+    horizontal-align: 0.5;
+    vertical-align: 0.5;
+    background-color: transparent;
+}
+
+element-text {
+    horizontal-align: 0.5;
+    vertical-align: 0.5;
+    background-color: transparent;
+    text-color: inherit;
+}

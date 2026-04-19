@@ -1,0 +1,29 @@
+* {
+  all: unset;
+  font-family: "JetBrainsMono Nerd Font", "JetBrains Mono", monospace;
+  font-size: 14px;
+  color: #e6e6e6;
+}
+
+.workspace-strip {
+  background: transparent;
+  padding: 0 8px;
+  min-height: 34px;
+}
+
+.workspace-button {
+  color: #a8a8a8;
+  padding: 0;
+  background: transparent;
+}
+
+.workspace-button:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.workspace-button.active {
+  color: #ffffff;
+  font-weight: 700;
+  background: transparent;
+}

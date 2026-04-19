@@ -1,0 +1,109 @@
+* {
+    font: "JetBrainsMono Nerd Font 12";
+    bg: rgba(20, 20, 20, 92%);
+    bg-alt: rgba(255, 255, 255, 7%);
+    fg: #e2e2e2;
+    fg-dim: #a6a6a6;
+    accent: #d8d8d8;
+    border: rgba(255, 255, 255, 14%);
+    background-color: transparent;
+    text-color: @fg;
+}
+
+window {
+    transparency: "real";
+    location: center;
+    anchor: center;
+    fullscreen: false;
+    width: 34%;
+    border: 1px;
+    border-color: @border;
+    border-radius: 0px;
+    background-color: @bg;
+}
+
+mainbox {
+    spacing: 10px;
+    padding: 14px;
+    background-color: transparent;
+    children: [ "inputbar", "message", "listview" ];
+}
+
+inputbar {
+    spacing: 10px;
+    padding: 8px 10px;
+    border: 1px;
+    border-color: @border;
+    border-radius: 0px;
+    background-color: @bg-alt;
+    text-color: @fg;
+    children: [ "prompt", "entry" ];
+}
+
+prompt {
+    background-color: transparent;
+    text-color: @fg-dim;
+}
+
+entry {
+    background-color: transparent;
+    text-color: @fg;
+    placeholder: "Search";
+    placeholder-color: @fg-dim;
+}
+
+message {
+    enabled: false;
+}
+
+listview {
+    columns: 1;
+    lines: 8;
+    cycle: true;
+    dynamic: false;
+    scrollbar: false;
+    layout: vertical;
+    fixed-height: true;
+    spacing: 4px;
+    background-color: transparent;
+}
+
+element {
+    spacing: 10px;
+    padding: 8px 10px;
+    border: 1px;
+    border-color: transparent;
+    border-radius: 0px;
+    background-color: transparent;
+    text-color: @fg;
+}
+
+element normal.normal {
+    background-color: transparent;
+    text-color: @fg;
+}
+
+element selected.normal {
+    background-color: @bg-alt;
+    border-color: @border;
+    text-color: @fg;
+}
+
+element selected.active {
+    background-color: @bg-alt;
+    border-color: @border;
+    text-color: @fg;
+}
+
+element-text {
+    background-color: transparent;
+    text-color: inherit;
+    vertical-align: 0.5;
+}
+
+element-icon {
+    enabled: true;
+    size: 1.4em;
+    vertical-align: 0.5;
+    background-color: transparent;
+}

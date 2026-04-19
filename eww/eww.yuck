@@ -1,0 +1,19 @@
+(defpoll workspace_strip_content :interval "1s" :initial "(box :class \"workspace-strip\")"
+  `~/.config/eww/scripts/render-workspaces.sh`)
+
+(defwidget workspace_strip []
+  (literal :content workspace_strip_content))
+
+(defwindow workspace_bar
+  :monitor 0
+  :geometry (geometry
+    :x "12px"
+    :y "-28px"
+    :width "240px"
+    :height "28px"
+    :anchor "top left")
+  :stacking "overlay"
+  :exclusive false
+  :focusable false
+  :namespace "wayconfig-workspaces"
+  (workspace_strip))

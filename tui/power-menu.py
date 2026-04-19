@@ -17,8 +17,17 @@ def safe_output(cmd: list[str]) -> str:
         return ""
 
 
-def run_shell(cmd: str) -> None:
-    subprocess.Popen(["bash", "-lc", cmd], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+def run_shell_interactive(stdscr: "curses._CursesWindow", cmd: str, pause: bool = False) -> int:
+    curses.def_prog_mode()
+    curses.endwin()
+    try:
+        completed = subprocess.run(["bash", "-lc", cmd], check=False)
+        if pause:
+            input("Press Enter to continue...")
+        return completed.returncode
+    finally:
+        curses.reset_prog_mode()
+        stdscr.refresh()
 
 
 def battery_details() -> list[tuple[str, str]]:
@@ -94,7 +103,7 @@ def draw_box(stdscr: "curses._CursesWindow", y: int, x: int, h: int, w: int, tit
     stdscr.attroff(curses.color_pair(1))
 
 
-def apply_action(action: str) -> None:
+def apply_action(stdscr: "curses._CursesWindow", action: str) -> bool:
     power_actions = {
         "Lock": "loginctl lock-session",
         "Logout": "hyprctl dispatch exit",
@@ -103,15 +112,21 @@ def apply_action(action: str) -> None:
         "Poweroff": "systemctl poweroff",
     }
     if action in power_actions:
-        run_shell(power_actions[action])
-        return
+        run_shell_interactive(stdscr, power_actions[action])
+        return True
     if action.startswith("Profile: "):
         profile = action.split(": ", 1)[1]
-        run_shell(f"powerprofilesctl set {profile}")
-        return
+        run_shell_interactive(stdscr, f"powerprofilesctl set {profile}", pause=True)
+        return False
     if action.startswith("Governor: "):
         governor = action.split(": ", 1)[1]
-        run_shell(f"pkexec cpupower frequency-set -g {governor}")
+        env_prefix = (
+            'env DISPLAY="${DISPLAY:-}" WAYLAND_DISPLAY="${WAYLAND_DISPLAY:-}" '
+            'XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-}" DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-}"'
+        )
+        run_shell_interactive(stdscr, f'pkexec {env_prefix} cpupower frequency-set -g {governor}', pause=True)
+        return False
+    return False
 
 
 def build_actions() -> list[str]:
@@ -186,8 +201,8 @@ def app(stdscr: "curses._CursesWindow") -> None:
             selected = min(len(actions) - 1, selected + 1)
         elif key in (10, 13, curses.KEY_ENTER, ord(" ")):
             if actions:
-                apply_action(actions[selected])
-                if actions[selected].startswith(("Lock", "Logout", "Suspend", "Reboot", "Poweroff")):
+                should_close = apply_action(stdscr, actions[selected])
+                if should_close:
                     return
                 last_refresh = 0.0
 

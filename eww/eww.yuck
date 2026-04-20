@@ -12,7 +12,7 @@
     :width "240px"
     :height "28px"
     :anchor "top left")
-  :stacking "overlay"
+  :stacking "fg"
   :exclusive false
   :focusable false
   :namespace "wayconfig-workspaces"

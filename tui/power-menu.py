@@ -7,7 +7,7 @@ from pathlib import Path
 
 
 TITLE = "Power"
-REFRESH_SECONDS = 1.5
+REFRESH_SECONDS = 2.0
 
 
 def safe_output(cmd: list[str]) -> str:
@@ -68,10 +68,6 @@ def available_profiles() -> list[str]:
     return profiles or ["power-saver", "balanced", "performance"]
 
 
-def current_profile() -> str:
-    return safe_output(["powerprofilesctl", "get"]) or "unknown"
-
-
 def available_governors() -> list[str]:
     governor_file = Path("/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors")
     if governor_file.exists():
@@ -80,16 +76,6 @@ def available_governors() -> list[str]:
         except OSError:
             pass
     return ["powersave", "schedutil", "performance"]
-
-
-def current_governor() -> str:
-    governor_file = Path("/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor")
-    if governor_file.exists():
-        try:
-            return governor_file.read_text().strip()
-        except OSError:
-            return "unknown"
-    return "unknown"
 
 
 def draw_box(stdscr: "curses._CursesWindow", y: int, x: int, h: int, w: int, title: str) -> None:
@@ -151,12 +137,16 @@ def app(stdscr: "curses._CursesWindow") -> None:
     last_refresh = 0.0
     details: list[tuple[str, str]] = []
     actions: list[str] = []
+    current_profile_name = "unknown"
+    current_governor_name = "unknown"
 
     while True:
         now = time.time()
         if now - last_refresh >= REFRESH_SECONDS:
             details = battery_details()
             actions = build_actions()
+            current_profile_name = next((value for key, value in details if key == "Profile"), "unknown")
+            current_governor_name = next((value for key, value in details if key == "Governor"), "unknown")
             selected = min(selected, max(0, len(actions) - 1))
             last_refresh = now
 
@@ -174,8 +164,6 @@ def app(stdscr: "curses._CursesWindow") -> None:
         stdscr.addnstr(row, 4, "Actions", 20, curses.color_pair(1) | curses.A_BOLD)
         row += 2
 
-        current_profile_name = current_profile()
-        current_governor_name = current_governor()
         visible_rows = max(1, h - row - 3)
         offset = min(max(0, selected - visible_rows + 1), max(0, len(actions) - visible_rows))
 

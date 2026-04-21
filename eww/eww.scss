@@ -1,7 +1,7 @@
 * {
   all: unset;
   font-family: "JetBrainsMono Nerd Font", "JetBrains Mono", monospace;
-  font-size: 12px;
+  font-size: 14px;
   color: #e6e6e6;
 }
 
@@ -15,11 +15,12 @@
   color: #a8a8a8;
   padding: 0;
   background: transparent;
+  min-height: 28px;
 }
 
 .workspace-button:hover {
   color: #ffffff;
-  background: rgba(255, 255, 255, 0.08);
+  background: transparent;
 }
 
 .workspace-button.active {

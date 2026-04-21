@@ -1,4 +1,4 @@
-(defpoll workspace_strip_content :interval "100ms" :initial "(box :class \"workspace-strip\")"
+(defpoll workspace_strip_content :interval "250ms" :initial "(box :class \"workspace-strip\")"
   `~/.config/eww/scripts/render-workspaces.sh`)
 
 (defwidget workspace_strip []
@@ -10,9 +10,9 @@
     :x "12px"
     :y "-28px"
     :width "240px"
-  :height "28px"
-  :anchor "top left")
-  :stacking "fg"
+    :height "28px"
+    :anchor "top left")
+  :stacking "overlay"
   :exclusive false
   :focusable false
   :namespace "wayconfig-workspaces"

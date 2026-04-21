@@ -13,7 +13,7 @@ start=$(( ((active - 1) / 5) * 5 + 1 ))
 
 end=$((start + 4))
 
-printf '(box :class "workspace-strip" :spacing 8'
+printf '(box :class "workspace-strip" :spacing 12'
 
 for workspace in $(seq "$start" "$end"); do
   if (( workspace == active )); then
